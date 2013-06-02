@@ -547,6 +547,7 @@ public final class Bukkit {
      */
     public static void reload() {
         server.reload();
+        org.spigotmc.CustomTimingsHandler.reload(); // Spigot
     }
 
     /**
@@ -1158,5 +1159,10 @@ public final class Bukkit {
     @Deprecated
     public static UnsafeValues getUnsafe() {
         return server.getUnsafe();
+    }
+
+    public static Server.Spigot spigot()
+    {
+        return server.spigot();
     }
 }
