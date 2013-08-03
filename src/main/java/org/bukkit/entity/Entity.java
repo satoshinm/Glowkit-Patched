@@ -468,4 +468,22 @@ public interface Entity extends Metadatable, CommandSender, Nameable {
      * @return true if the tag was successfully removed
      */
     boolean removeScoreboardTag(String tag);
+
+    // Spigot Start
+    public class Spigot
+    {
+
+        /**
+         * Returns whether this entity is invulnerable.
+         *
+         * @return True if the entity is invulnerable.
+         */
+        public boolean isInvulnerable()
+        {
+            throw new UnsupportedOperationException( "Not supported yet." );
+        }
+    }
+
+    Spigot spigot();
+    // Spigot End
 }
