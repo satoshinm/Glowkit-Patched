@@ -1,13 +1,14 @@
 package org.bukkit.block;
 
 import org.bukkit.Nameable;
+import com.destroystokyo.paper.loottable.LootableInventory; // Paper
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
 /**
  * Represents a chest.
  */
-public interface Chest extends BlockState, InventoryHolder, Lockable, Nameable {
+public interface Chest extends BlockState, InventoryHolder, Lockable, Nameable, LootableInventory { // Paper
 
     /**
      * Returns the chest's inventory. If this is a double chest, it returns
