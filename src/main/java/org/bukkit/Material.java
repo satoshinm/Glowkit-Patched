@@ -1,78 +1,27 @@
 package org.bukkit;
 
-import java.lang.reflect.Constructor;
-import java.util.Arrays;
-import java.util.Map;
-
+import com.google.common.collect.Maps;
 import org.apache.commons.lang.Validate;
 import org.bukkit.map.MapView;
-import org.bukkit.material.Bed;
-import org.bukkit.material.Button;
-import org.bukkit.material.Cake;
-import org.bukkit.material.Cauldron;
-import org.bukkit.material.Chest;
-import org.bukkit.material.Coal;
-import org.bukkit.material.CocoaPlant;
-import org.bukkit.material.Command;
-import org.bukkit.material.Comparator;
-import org.bukkit.material.Crops;
-import org.bukkit.material.DetectorRail;
-import org.bukkit.material.Diode;
-import org.bukkit.material.Dispenser;
-import org.bukkit.material.Door;
-import org.bukkit.material.Dye;
-import org.bukkit.material.EnderChest;
-import org.bukkit.material.FlowerPot;
-import org.bukkit.material.Furnace;
-import org.bukkit.material.Gate;
-import org.bukkit.material.Hopper;
-import org.bukkit.material.Ladder;
-import org.bukkit.material.Leaves;
-import org.bukkit.material.Lever;
-import org.bukkit.material.LongGrass;
-import org.bukkit.material.MaterialData;
-import org.bukkit.material.MonsterEggs;
-import org.bukkit.material.Mushroom;
-import org.bukkit.material.NetherWarts;
-import org.bukkit.material.PistonBaseMaterial;
-import org.bukkit.material.PistonExtensionMaterial;
-import org.bukkit.material.PoweredRail;
-import org.bukkit.material.PressurePlate;
-import org.bukkit.material.Pumpkin;
-import org.bukkit.material.Rails;
-import org.bukkit.material.RedstoneTorch;
-import org.bukkit.material.RedstoneWire;
-import org.bukkit.material.Sandstone;
-import org.bukkit.material.Sapling;
-import org.bukkit.material.Sign;
-import org.bukkit.material.Skull;
-import org.bukkit.material.SmoothBrick;
-import org.bukkit.material.SpawnEgg;
-import org.bukkit.material.Stairs;
-import org.bukkit.material.Step;
-import org.bukkit.material.Torch;
-import org.bukkit.material.TrapDoor;
-import org.bukkit.material.Tree;
-import org.bukkit.material.Tripwire;
-import org.bukkit.material.TripwireHook;
-import org.bukkit.material.Vine;
-import org.bukkit.material.Wood;
-import org.bukkit.material.WoodenStep;
-import org.bukkit.material.Wool;
+import org.bukkit.material.*;
 
 import com.google.common.collect.Maps;
 
 import org.bukkit.material.Banner;
 import org.bukkit.material.Observer;
+import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.Map;
+
 
 /**
  * An enum of all material IDs accepted by the official server and client
  */
 public enum Material {
     AIR(0, 0),
-    STONE(1),
+    STONE(1, Stone.class),
     GRASS(2),
-    DIRT(3),
+    DIRT(3, Dirt.class),
     COBBLESTONE(4),
     WOOD(5, Wood.class),
     SAPLING(6, Sapling.class),
@@ -81,14 +30,14 @@ public enum Material {
     STATIONARY_WATER(9, MaterialData.class),
     LAVA(10, MaterialData.class),
     STATIONARY_LAVA(11, MaterialData.class),
-    SAND(12),
+    SAND(12, Sand.class),
     GRAVEL(13),
     GOLD_ORE(14),
     IRON_ORE(15),
     COAL_ORE(16),
     LOG(17, Tree.class),
     LEAVES(18, Leaves.class),
-    SPONGE(19),
+    SPONGE(19, Sponge.class),
     GLASS(20),
     LAPIS_ORE(21),
     LAPIS_BLOCK(22),
@@ -237,14 +186,14 @@ public enum Material {
     SLIME_BLOCK(165),
     BARRIER(166),
     IRON_TRAPDOOR(167, TrapDoor.class),
-    PRISMARINE(168),
+    PRISMARINE(168, Prismarine.class),
     SEA_LANTERN(169),
     HAY_BLOCK(170),
     CARPET(171),
     HARD_CLAY(172),
     COAL_BLOCK(173),
     PACKED_ICE(174),
-    DOUBLE_PLANT(175),
+    DOUBLE_PLANT(175, DoublePlant.class),
     STANDING_BANNER(176, Banner.class),
     WALL_BANNER(177, Banner.class),
     DAYLIGHT_DETECTOR_INVERTED(178),
