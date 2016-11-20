@@ -61,6 +61,7 @@ public class SimpleCommandMap implements CommandMap {
         register("bukkit", new DifficultyCommand());
         register("bukkit", new WeatherCommand());
         register("bukkit", new SpawnpointCommand());
+        register("bukkit", new ClearCommand());
         register("bukkit", new GameRuleCommand());
         register("bukkit", new EnchantCommand());
         register("bukkit", new TestForCommand());
