@@ -191,9 +191,7 @@ class TimingsExport extends Thread {
         // Information on the users Config
 
         parent.put("config", createObject(
-            pair("spigot", mapAsJSON(Bukkit.spigot().getSpigotConfig(), null)),
-            pair("bukkit", mapAsJSON(Bukkit.spigot().getBukkitConfig(), null)),
-            pair("paper", mapAsJSON(Bukkit.spigot().getPaperConfig(), null))
+            pair("bukkit", mapAsJSON(Bukkit.spigot().getConfig(), null))
         ));
 
         new TimingsExport(listeners, parent, history).start();

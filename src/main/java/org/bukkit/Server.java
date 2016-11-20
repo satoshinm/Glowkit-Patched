@@ -1,17 +1,7 @@
 package org.bukkit;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.logging.Logger;
-
+import com.avaje.ebean.config.ServerConfig;
+import com.google.common.collect.ImmutableList;
 import org.bukkit.Warning.WarningState;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
@@ -22,12 +12,10 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.server.ServerListPingEvent;
+import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.help.HelpMap;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Merchant;
-import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.*;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.map.MapView;
 import org.bukkit.permissions.Permissible;
 import org.bukkit.plugin.PluginManager;
@@ -38,12 +26,11 @@ import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.util.CachedServerIcon;
 
-import com.avaje.ebean.config.ServerConfig;
-import com.google.common.collect.ImmutableList;
-import org.bukkit.generator.ChunkGenerator;
-
-import org.bukkit.inventory.ItemFactory;
-import org.bukkit.inventory.meta.ItemMeta;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.Serializable;
+import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Represents a server implementation.
@@ -977,25 +964,27 @@ public interface Server extends PluginMessageRecipient {
 
     public class Spigot
     {
-        @Deprecated
         public org.bukkit.configuration.file.YamlConfiguration getConfig()
         {
             throw new UnsupportedOperationException( "Not supported yet." );
         }
 
+        @Deprecated
         public org.bukkit.configuration.file.YamlConfiguration getBukkitConfig()
         {
-            throw new UnsupportedOperationException( "Not supported yet." );
+            return getConfig();
         }
 
+        @Deprecated
         public org.bukkit.configuration.file.YamlConfiguration getSpigotConfig()
         {
-            throw new UnsupportedOperationException("Not supported yet.");
+            return getConfig();
         }
 
+        @Deprecated
         public org.bukkit.configuration.file.YamlConfiguration getPaperConfig()
         {
-            throw new UnsupportedOperationException("Not supported yet.");
+            return getConfig();
         }
 
         /**
