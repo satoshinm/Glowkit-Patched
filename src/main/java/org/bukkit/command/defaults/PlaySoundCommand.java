@@ -1,8 +1,6 @@
 package org.bukkit.command.defaults;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -10,7 +8,7 @@ public class PlaySoundCommand extends VanillaCommand {
     public PlaySoundCommand() {
         super("playsound");
         this.description = "Plays a sound to a given player";
-        this.usageMessage = "/playsound <sound> <player> [x] [y] [z] [volume] [pitch] [minimumVolume]";
+        this.usageMessage = "/playsound <sound> <source> <player> [x] [y] [z] [volume] [pitch] [minimumVolume]";
         this.setPermission("bukkit.command.playsound");
     }
 
@@ -20,12 +18,29 @@ public class PlaySoundCommand extends VanillaCommand {
             return true;
         }
 
-        if (args.length < 2) {
+        if (args.length < 3) {
             sender.sendMessage(ChatColor.RED + "Usage: " + usageMessage);
             return false;
         }
         final String soundArg = args[0];
-        final String playerArg = args[1];
+        final String sourceArg = args[1];
+        final String playerArg = args[2];
+
+        final Sound sound;
+        final SoundCategory source = SoundCategory.getCategory(sourceArg);
+        if (soundArg.contains(".") || soundArg.contains("minecraft:")) {
+            sound = Sound.fromId(soundArg);
+        } else {
+            sound = Sound.getSound(soundArg);
+        }
+        if (sound == null) {
+            sender.sendMessage(ChatColor.RED + "Unknown sound: " + soundArg);
+            return false;
+        }
+        if (source == null) {
+            sender.sendMessage(ChatColor.RED + "Unknown source: " + sourceArg);
+            return false;
+        }
 
         final Player player = Bukkit.getPlayerExact(playerArg);
         if (player == null) {
@@ -43,21 +58,21 @@ public class PlaySoundCommand extends VanillaCommand {
         double minimumVolume = 0.0D;
 
         switch (args.length) {
-        default:
-        case 8:
-            minimumVolume = getDouble(sender, args[7], 0.0D, 1.0D);
-        case 7:
-            pitch = getDouble(sender, args[6], 0.0D, 2.0D);
-        case 6:
-            volume = getDouble(sender, args[5], 0.0D, Float.MAX_VALUE);
-        case 5:
-            z = getRelativeDouble(z, sender, args[4]);
-        case 4:
-            y = getRelativeDouble(y, sender, args[3]);
-        case 3:
-            x = getRelativeDouble(x, sender, args[2]);
-        case 2:
-            // Noop
+            default:
+            case 9:
+                minimumVolume = getDouble(sender, args[8], 0.0D, 1.0D);
+            case 8:
+                pitch = getDouble(sender, args[7], 0.0D, 2.0D);
+            case 7:
+                volume = getDouble(sender, args[6], 0.0D, Float.MAX_VALUE);
+            case 6:
+                z = getRelativeDouble(z, sender, args[5]);
+            case 5:
+                y = getRelativeDouble(y, sender, args[4]);
+            case 4:
+                x = getRelativeDouble(x, sender, args[3]);
+            case 3:
+                // Noop
         }
 
         final double fixedVolume = volume > 1.0D ? volume * 16.0D : 16.0D;
@@ -77,9 +92,9 @@ public class PlaySoundCommand extends VanillaCommand {
                 location.add(deltaX / delta, deltaY / delta, deltaZ / delta);
             }
 
-            player.playSound(location, soundArg, (float) minimumVolume, (float) pitch);
+            player.playSound(location, sound, source, (float) minimumVolume, (float) pitch);
         } else {
-            player.playSound(soundLocation, soundArg, (float) volume, (float) pitch);
+            player.playSound(soundLocation, sound, source, (float) volume, (float) pitch);
         }
         sender.sendMessage(String.format("Played '%s' to %s", soundArg, playerArg));
         return true;

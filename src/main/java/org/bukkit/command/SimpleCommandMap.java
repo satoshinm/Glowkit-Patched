@@ -66,6 +66,8 @@ public class SimpleCommandMap implements CommandMap {
         register("bukkit", new EnchantCommand());
         register("bukkit", new TestForCommand());
         register("bukkit", new EffectCommand());
+        register("bukkit", new PlaySoundCommand());
+        register("bukkit", new StopSoundCommand());
         register("bukkit", new SpreadPlayersCommand());
         register("bukkit", new SetWorldSpawnCommand());
         register("bukkit", new SetIdleTimeoutCommand());
