@@ -1,11 +1,10 @@
 package org.bukkit.command.defaults;
 
-import java.util.List;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-@Deprecated
+import java.util.List;
+
 public abstract class VanillaCommand extends Command {
     static final int MAX_COORD = 30000000;
     static final int MIN_COORD_MINUS_ONE = -30000001;
