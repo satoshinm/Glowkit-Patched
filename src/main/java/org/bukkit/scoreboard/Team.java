@@ -1,9 +1,10 @@
 package org.bukkit.scoreboard;
 
-import java.util.Set;
-
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.Set;
 
 /**
  * A team on a scoreboard that has a common display theme and other
@@ -130,6 +131,23 @@ public interface Team {
      */
     @Deprecated
     void setNameTagVisibility(NameTagVisibility visibility) throws IllegalArgumentException;
+
+    /**
+     * Gets the color of a team
+     * This is only used for the team color sidebar slots
+     * @return color
+     * @throws IllegalStateException if this team has been unregistered
+     */
+    ChatColor getColor() throws IllegalStateException;
+
+    /**
+     * Sets color of a team
+     * This is only used for the team color sidebar slots
+     *
+     * @param color color
+     * @throws IllegalStateException if this team has been unregistered
+     */
+    void setColor(ChatColor color) throws IllegalStateException;
 
     /**
      * Gets the Set of players on the team

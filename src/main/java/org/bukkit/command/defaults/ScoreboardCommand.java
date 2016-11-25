@@ -1,13 +1,7 @@
 package org.bukkit.command.defaults;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -16,23 +10,17 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
+import org.bukkit.scoreboard.*;
 import org.bukkit.util.StringUtil;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+import java.util.*;
 
-@Deprecated
 public class ScoreboardCommand extends VanillaCommand {
 
     private static final List<String> MAIN_CHOICES = ImmutableList.of("objectives", "players", "teams");
     private static final List<String> OBJECTIVES_CHOICES = ImmutableList.of("list", "add", "remove", "setdisplay");
-    private static final List<String> OBJECTIVES_CRITERIA = ImmutableList.of("health", "playerKillCount", "totalKillCount", "deathCount", "dummy");
-    private static final List<String> PLAYERS_CHOICES = ImmutableList.of("set", "add", "remove", "reset", "list");
+    private static final List<String> OBJECTIVES_CRITERIA = ImmutableList.of("health", "playerKillCount", "totalKillCount", "deathCount", "dummy", "trigger");
+    private static final List<String> PLAYERS_CHOICES = ImmutableList.of("set", "add", "remove", "reset", "list", "enable");
     private static final List<String> TEAMS_CHOICES = ImmutableList.of("add", "remove", "join", "leave", "empty", "list", "option");
     private static final List<String> TEAMS_OPTION_CHOICES = ImmutableList.of("color", "friendlyfire", "seeFriendlyInvisibles");
     private static final Map<String, DisplaySlot> OBJECTIVES_DISPLAYSLOT = ImmutableMap.of("belowName", DisplaySlot.BELOW_NAME, "list", DisplaySlot.PLAYER_LIST, "sidebar", DisplaySlot.SIDEBAR);
@@ -263,6 +251,29 @@ public class ScoreboardCommand extends VanillaCommand {
                     }
                 }
             }
+        } else if(args[0].equalsIgnoreCase("enable")) {
+            if (args.length < 4) {
+                sender.sendMessage(ChatColor.RED + "Usage: /scoreboard players enable <player> <trigger>");
+                return false;
+            }
+
+            Objective objective = mainScoreboard.getObjective(args[3]);
+            if (objective == null) {
+                sender.sendMessage(ChatColor.RED + "No objective was found by the name '" + args[3] + "'");
+                return false;
+            }
+
+            if (args[2].equalsIgnoreCase("*")) {
+                for (String player : mainScoreboard.getEntries()) {
+                    objective.getScore(player).setLocked(false);
+                    sender.sendMessage("Enabled trigger " + args[3] + " for " + player);
+                }
+                return true;
+            }
+
+            objective.getScore(args[2]).setLocked(false);
+            sender.sendMessage("Enabled trigger " + args[3] + " for " + args[2]);
+            return true;
         } else if (args[0].equalsIgnoreCase("teams")) {
             if (args.length == 1) {
                 sender.sendMessage(ChatColor.RED + "/scoreboard teams <list|add|remove|empty|join|leave|option>");
@@ -512,7 +523,7 @@ public class ScoreboardCommand extends VanillaCommand {
                 if (args.length == 2) {
                     return StringUtil.copyPartialMatches(args[1], PLAYERS_CHOICES, new ArrayList<String>());
                 }
-                if (args[1].equalsIgnoreCase("set") || args[1].equalsIgnoreCase("add") || args[1].equalsIgnoreCase("remove")) {
+                if (args[1].equalsIgnoreCase("set") || args[1].equalsIgnoreCase("add") || args[1].equalsIgnoreCase("remove") || args[1].equalsIgnoreCase("enable")) {
                     if (args.length == 3) {
                         return super.tabComplete(sender, alias, args);
                     }

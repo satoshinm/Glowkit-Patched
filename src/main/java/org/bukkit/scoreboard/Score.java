@@ -69,4 +69,24 @@ public interface Score {
      *     {@link Objective#unregister() unregistered}
      */
     Scoreboard getScoreboard();
+
+    /**
+     * Gets whether or not this score is locked. This is only meaningful
+     * for objectives with the criteria {@link Criterias#TRIGGER TRIGGER}.
+     *
+     * @return locked whether or not this score is locked
+     * @throws IllegalStateException if the associated objective has been
+     *     unregistered
+     */
+    boolean getLocked();
+
+    /**
+     * Sets whether or not this score is locked. This is only meaningful
+     * for objectives with the criteria {@link Criterias#TRIGGER TRIGGER}.
+     *
+     * @param locked The new locked state
+     * @throws IllegalStateException if the associated objective has been
+     *     unregistered
+     */
+    void setLocked(boolean locked);
 }
