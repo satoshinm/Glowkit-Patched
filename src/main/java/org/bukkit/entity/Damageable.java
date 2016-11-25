@@ -1,6 +1,7 @@
 package org.bukkit.entity;
 
 import org.bukkit.attribute.Attribute;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 /**
  * Represents an {@link Entity} that has health and can take damage.
@@ -42,6 +43,25 @@ public interface Damageable extends Entity {
      */
     @Deprecated
     void _INVALID_damage(int amount, Entity source);
+
+    /**
+     * Deals the given amount of damage to this entity, from a specified
+     * cause.
+     *
+     * @param amount Amount of damage to deal
+     * @param cause  Cause of the damage
+     */
+    void damage(double amount, DamageCause cause);
+
+    /**
+     * Deals the given amount of damage to this entity, from a specified
+     * cause.
+     *
+     * @param amount Amount of damage to deal
+     * @param source Entity which to attribute this damage from
+     * @param cause  Cause of the damage
+     */
+    void damage(double amount, Entity source, DamageCause cause);
 
     /**
      * Gets the entity's health from 0 to {@link #getMaxHealth()}, where 0 is dead.
