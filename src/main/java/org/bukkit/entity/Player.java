@@ -569,6 +569,13 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
     // Paper end
 
     /**
+     * Gets the title currently set on the player
+     *
+     * @return the current title
+     */
+    public Title getTitle();
+
+    /**
      * Forces an update of the player's entire inventory.
      *
      */
