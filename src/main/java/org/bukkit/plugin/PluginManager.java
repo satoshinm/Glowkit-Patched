@@ -1,13 +1,15 @@
 package org.bukkit.plugin;
 
-import java.io.File;
-import java.util.Set;
-
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permissible;
 import org.bukkit.permissions.Permission;
+
+import java.io.File;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * Handles all plugin management from the Server
@@ -81,6 +83,29 @@ public interface PluginManager {
      * @return A list of all plugins loaded
      */
     public Plugin[] loadPlugins(File directory);
+
+    /**
+     * Loads the array of plugins
+     *
+     * @param files Array of plugin files to load
+     * @param sourceFolder Containing folder path name string for error messages
+     * @return A list of all plugins loaded
+     */
+    public Plugin[] loadPlugins(File[] files, String sourceFolder);
+
+    /**
+     * Adds a plugin file URL to skip loading for
+     *
+     * @param url The plugin file URL
+     */
+    public void addIgnoredURL(URL url);
+
+    /**
+     * Adds plugin file URLs to skip loading for
+     *
+     * @param urls The plugin file URLs
+     */
+    public void addIgnoredURL(Collection<URL> urls);
 
     /**
      * Disables all the loaded plugins
