@@ -4,9 +4,16 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
 /**
- * Represents a {@link Material#MONSTER_EGG} and it's spawned type.
+ * Represents a {@link Material#MONSTER_EGG} and its spawned type.
  */
 public interface SpawnEggMeta extends ItemMeta {
+
+    /**
+     * Checks if an Entity type is attributed to the spawn egg.
+     *
+     * @return true if an Entity type is attributed to the spawn egg
+     */
+    boolean hasSpawnedType();
 
     /**
      * Get the type of entity this egg will spawn.
