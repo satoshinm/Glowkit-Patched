@@ -1194,6 +1194,13 @@ public final class Bukkit {
     public static void reloadPermissions() {
         server.reloadPermissions();
     }
+
+    /**
+     * Reload the Command Aliases in commands.yml
+     */
+    public static boolean reloadCommandAliases() {
+        return server.reloadCommandAliases();
+    }
     // Paper end
 
     public static Server.Spigot spigot()
