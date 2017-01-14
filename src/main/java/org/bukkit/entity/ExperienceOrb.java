@@ -18,4 +18,9 @@ public interface ExperienceOrb extends Entity {
      * @param value Amount of experience
      */
     public void setExperience(int value);
+
+    /**
+     * Check if this orb was spawned from a ThrownExpBottle
+     */
+    public boolean isFromBottle();
 }
